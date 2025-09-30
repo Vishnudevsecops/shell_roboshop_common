@@ -5,7 +5,8 @@ cehck_rootaccess
 #check if current user has root access
 app_name="payment"
 
-python3_installation
 systemd_setup
+python3_installation
+
 app_restart
 #calling app_restart function from common.sh
