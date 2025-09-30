@@ -91,3 +91,19 @@ app_setup(){
         systemctl restart $app_name &>>$log_file
         validate $? "$app_name restart"
     }
+
+    maven_installation(){
+        dnf install maven -y &>>$log_file
+        validate $? "Maven installation"
+        cd /app 
+        mvn clean package 
+        mv target/shipping-1.0.jar shipping.jar
+    }
+
+    python3_installation(){
+        dnf install python3 gcc python3-devel -y &>>$log_file
+        validate $? "Python3 installation"
+        cd /app || { echo "Failed to change to /app"; exit 1; }
+        pip3 install -r requirements.txt &>>$log_file
+        validate $? "Python dependencies"
+    }
